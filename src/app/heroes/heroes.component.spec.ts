@@ -36,5 +36,16 @@ describe("HerosComponent", () => {
         strength: 55,
       });
     });
+
+    it("should call deleteHero with correct hero", () => {
+      mockHeroService.deleteHero.and.returnValue(of(true));
+      component.heroes = HEROES;
+
+      component.delete(HEROES[2]);
+
+      expect(mockHeroService.deleteHero).toHaveBeenCalledWith(HEROES[2]);
+      expect(mockHeroService.deleteHero(HEROES[2]).subscribe())
+        .toHaveBeenCalled;
+    });
   });
 });
