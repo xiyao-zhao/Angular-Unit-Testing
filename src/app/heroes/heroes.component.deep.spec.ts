@@ -61,9 +61,8 @@ describe("HeroesComponent (deep tests)", () => {
     const heroComponents = fixture.debugElement.queryAll(
       By.directive(HeroComponent)
     );
-    heroComponents[0]
-      .query(By.css("button"))
-      .triggerEventHandler("click", { stopPropagation: () => {} });
+    // which parameter doesn't really matter, because of the binding method, ngFor
+    (<HeroComponent>heroComponents[0].componentInstance).delete.emit(undefined);
 
     expect(fixture.componentInstance.delete).toHaveBeenCalledWith(HEROES[0]);
   });
