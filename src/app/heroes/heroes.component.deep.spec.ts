@@ -62,7 +62,8 @@ describe("HeroesComponent (deep tests)", () => {
       By.directive(HeroComponent)
     );
     // which parameter doesn't really matter, because of the binding method, ngFor
-    (<HeroComponent>heroComponents[0].componentInstance).delete.emit(undefined);
+    // (<HeroComponent>heroComponents[0].componentInstance).delete.emit(undefined);
+    heroComponents[0].triggerEventHandler("delete", null);
 
     expect(fixture.componentInstance.delete).toHaveBeenCalledWith(HEROES[0]);
   });
