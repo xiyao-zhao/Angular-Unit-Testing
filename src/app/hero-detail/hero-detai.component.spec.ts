@@ -3,6 +3,7 @@ import {
   TestBed,
   fakeAsync,
   tick,
+  waitForAsync,
 } from "@angular/core/testing";
 import { HeroDetailComponent } from "./hero-detail.component";
 import { ActivatedRoute } from "@angular/router";
@@ -61,4 +62,16 @@ describe("HeroDetailComponent", () => {
 
     expect(mockHeroService.updateHero).toHaveBeenCalled();
   }));
+
+  //   it("should call updateHero when save is called", waitForAsync(() => {
+  //     mockHeroService.updateHero.and.returnValue(of({}));
+  //     fixture.detectChanges();
+
+  //     fixture.componentInstance.save();
+
+  //     // wait for any promises that are waiting to be resolved
+  //     fixture.whenStable().then(() => {
+  //       expect(mockHeroService.updateHero).toHaveBeenCalled();
+  //     });
+  //   }));
 });
