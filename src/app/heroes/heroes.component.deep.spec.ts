@@ -80,6 +80,7 @@ describe("HeroesComponent (deep tests)", () => {
 
     expect(fixture.componentInstance.delete).toHaveBeenCalledWith(HEROES[0]);
   });
+
   it("should add a new hero to the hero list when the add button is clicked", () => {
     mockHeroService.getHeroes.and.returnValue(of(HEROES));
     fixture.detectChanges();
@@ -99,5 +100,21 @@ describe("HeroesComponent (deep tests)", () => {
     const heroText = fixture.debugElement.query(By.css("ul")).nativeElement
       .textContent;
     expect(heroText).toContain(name);
+  });
+
+  it("should have the correct route for the first hero", () => {
+    mockHeroService.getHeroes.and.returnValue(of(HEROES));
+    fixture.detectChanges();
+    const heroComponents = fixture.debugElement.queryAll(
+      By.directive(HeroComponent)
+    );
+
+    let routerLink = heroComponents[0]
+      .query(By.directive(RouterLinkDirectiveStub))
+      .injector.get(RouterLinkDirectiveStub);
+
+    heroComponents[0].query(By.css("a")).triggerEventHandler("click", null);
+
+    expect(routerLink.navigatedTo).toBe("/detail/1");
   });
 });
