@@ -1,4 +1,9 @@
-import { ComponentFixture, TestBed } from "@angular/core/testing";
+import {
+  ComponentFixture,
+  TestBed,
+  fakeAsync,
+  tick,
+} from "@angular/core/testing";
 import { HeroDetailComponent } from "./hero-detail.component";
 import { ActivatedRoute } from "@angular/router";
 import { HeroService } from "../hero.service";
@@ -46,4 +51,14 @@ describe("HeroDetailComponent", () => {
       "SUPERDUDE"
     );
   });
+
+  it("should call updateHero when save is called", fakeAsync(() => {
+    mockHeroService.updateHero.and.returnValue(of({}));
+    fixture.detectChanges();
+
+    fixture.componentInstance.save();
+    tick(250);
+
+    expect(mockHeroService.updateHero).toHaveBeenCalled();
+  }));
 });
